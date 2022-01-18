@@ -1,7 +1,6 @@
 import { Box, Center, Container, Flex, Spacer, Text } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import { supabase } from "../libs/supabase";
-console.log(supabase);
 
 const Home: NextPage = () => {
   return (
