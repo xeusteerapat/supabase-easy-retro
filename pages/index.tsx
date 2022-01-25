@@ -1,4 +1,12 @@
-import { Box, Center, Container, Flex, Spacer, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Container,
+  Flex,
+  Spacer,
+  Text,
+  Input,
+} from "@chakra-ui/react";
 import type { NextPage } from "next";
 import { supabase } from "../libs/supabase";
 
@@ -11,6 +19,11 @@ const Home: NextPage = () => {
       <Flex>
         <Box w='350px' h='1000' bg='gray.100'>
           <Text fontSize='2xl'>Went Well</Text>
+          <Input
+            placeholder='Basic usage'
+            variant='outline'
+            backgroundColor='white'
+          />
         </Box>
         <Spacer />
         <Box w='350px' h='1000' bg='gray.100'>
