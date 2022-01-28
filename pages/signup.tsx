@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "next/router";
 import {
   Box,
   Container,
@@ -14,6 +15,7 @@ const Signup = () => {
   const [email, setEmail] = React.useState("");
   const [fullname, setFullname] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,7 +26,7 @@ const Signup = () => {
         password,
       });
 
-      console.log({ user, session, error });
+      router.push("/");
     } catch (error: any) {
       console.log(error);
     }
