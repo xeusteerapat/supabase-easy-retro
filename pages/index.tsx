@@ -10,9 +10,11 @@ import {
   UnorderedList,
 } from "@chakra-ui/react";
 import type { NextPage } from "next";
-import React, { EventHandler } from "react";
+import React from "react";
 import Navbar from "../components/Navbar";
 import { Message } from "../types/message";
+import { supabase } from "../libs/supabase";
+import { User } from "../types/user";
 
 const sampleList = [
   {
@@ -36,6 +38,7 @@ const sampleList = [
 const Home: NextPage = () => {
   const [inputValue, setInputValue] = React.useState("");
   const [myList, setMyList] = React.useState(sampleList);
+  const [currentUser, setCurrentUser] = React.useState<User | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value);
@@ -47,9 +50,16 @@ const Home: NextPage = () => {
     setInputValue("");
   };
 
+  React.useEffect(() => {
+    const user = supabase.auth.user();
+
+    setCurrentUser({ ...currentUser, id: user?.id, email: user?.email });
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <Container maxW='6xl'>
-      <Navbar />
+      <Navbar user={currentUser} />
       <Flex>
         <Box w='400px' h='1000' bg='gray.100'>
           <Text fontSize='2xl'>Went Well</Text>
@@ -60,7 +70,9 @@ const Home: NextPage = () => {
             onChange={handleChange}
             value={inputValue}
           />
-          <Button onClick={handleSubmit}>ADD</Button>
+          <Button onClick={handleSubmit} colorScheme='blue'>
+            ADD
+          </Button>
           <UnorderedList>
             {!myList.length
               ? null

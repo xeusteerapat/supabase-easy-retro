@@ -1,41 +1,23 @@
-import { ReactNode } from "react";
+import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
 import {
-  Box,
-  Flex,
   Avatar,
-  HStack,
-  Link,
-  IconButton,
+  Box,
   Button,
+  Flex,
+  HStack,
+  IconButton,
   Menu,
   MenuButton,
-  MenuList,
-  MenuItem,
   MenuDivider,
-  useDisclosure,
+  MenuItem,
+  MenuList,
   useColorModeValue,
-  Stack,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
+import React from "react";
+import { User } from "../types/user";
 
-const Links = ["Dashboard", "Projects", "Team"];
-
-const NavLink = ({ children }: { children: ReactNode }) => (
-  <Link
-    px={2}
-    py={1}
-    rounded={"md"}
-    _hover={{
-      textDecoration: "none",
-      bg: useColorModeValue("gray.200", "gray.700"),
-    }}
-    href={"#"}
-  >
-    {children}
-  </Link>
-);
-
-export default function Navbar() {
+const Navbar: React.FC<{ user: User | null }> = ({ user }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
@@ -55,11 +37,7 @@ export default function Navbar() {
               as={"nav"}
               spacing={4}
               display={{ base: "none", md: "flex" }}
-            >
-              {Links.map(link => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
-            </HStack>
+            ></HStack>
           </HStack>
           <Flex alignItems={"center"}>
             <Menu>
@@ -70,12 +48,7 @@ export default function Navbar() {
                 cursor={"pointer"}
                 minW={0}
               >
-                <Avatar
-                  size={"sm"}
-                  src={
-                    "https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
-                  }
-                />
+                <Avatar size={"sm"} name={!user ? "Anonymous" : user.email} />
               </MenuButton>
               <MenuList>
                 <MenuItem>Profile</MenuItem>
@@ -85,17 +58,9 @@ export default function Navbar() {
             </Menu>
           </Flex>
         </Flex>
-
-        {isOpen ? (
-          <Box pb={4} display={{ md: "none" }}>
-            <Stack as={"nav"} spacing={4}>
-              {Links.map(link => (
-                <NavLink key={link}>{link}</NavLink>
-              ))}
-            </Stack>
-          </Box>
-        ) : null}
       </Box>
     </>
   );
-}
+};
+
+export default Navbar;
