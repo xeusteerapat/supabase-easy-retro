@@ -10,6 +10,7 @@ import {
   Heading,
 } from "@chakra-ui/react";
 import { supabase } from "../libs/supabase";
+import Link from "next/link";
 
 const Signup = () => {
   const [email, setEmail] = React.useState("");
@@ -73,6 +74,7 @@ const Signup = () => {
             Sign Up
           </Button>
         </form>
+        Already have account, <Link href='/signin'>Signin</Link>
       </Box>
     </Container>
   );
