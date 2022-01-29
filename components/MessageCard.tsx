@@ -6,7 +6,7 @@ const MessageCard: React.FC<{ message: string }> = ({ message }) => {
     <Flex pt='2' w='full' alignItems='center' justifyContent='center'>
       <Box
         bg={useColorModeValue("white", "gray.800")}
-        maxW='275px'
+        w='300px'
         borderWidth='1px'
         rounded='lg'
         shadow='lg'
